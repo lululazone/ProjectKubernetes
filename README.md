@@ -40,3 +40,19 @@ curl -sfL https://get.k3s.io | sh -s - --docker
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
+
+# Setup web app 
+
+```
+mkdir grp8devopsGIRARDGARVESDEMONTIS
+```
+
+- Copy repo into this directory
+
+Creating a configmap for the app:
+
+```
+kubectl create configmap hello-world --from-file index.html
+```
+
+
