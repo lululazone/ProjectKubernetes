@@ -14,3 +14,12 @@ Michel GARVES
 
 _________________
 
+
+
+##Schéma initial du déroulé du projet :
+
+<div class="pull-right"> 
+<center>
+<img src="https://ibb.co/7bYZWw3"/>
+</center>
+</div>
