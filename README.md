@@ -26,15 +26,15 @@ _________________
 
 
 
-## Installation Steps: 
+# Installation Steps: 
 
-# k3s installation: 
+## k3s installation: 
 
 ```
 curl -sfL https://get.k3s.io | sh -s - --docker
 ```
 
-# Docker installation:
+## Docker installation:
 
 ```
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
