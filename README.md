@@ -127,10 +127,10 @@ kubectl apply -f webapp.yml
 
 
 # Useful links: 
--https://www.jeffgeerling.com/blog/2022/quick-hello-world-http-deployment-testing-k3s-and-traefik
--https://docs.docker.com/engine/install/ubuntu/
--https://k3s.io/
--https://docs.k3s.io/networking
--https://chocolatey.org/install
+- https://www.jeffgeerling.com/blog/2022/quick-hello-world-http-deployment-testing-k3s-and-traefik
+- https://docs.docker.com/engine/install/ubuntu/
+- https://k3s.io/
+- https://docs.k3s.io/networking
+- https://chocolatey.org/install
 
 
