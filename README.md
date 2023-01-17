@@ -23,3 +23,20 @@ _________________
 <img src="https://i.ibb.co/PtmPh72/diagramme-Kubernetes.png"/>
 </center>
 </div>
+
+
+
+##Installation Steps: 
+
+#k3s installation: 
+
+```
+curl -sfL https://get.k3s.io | sh -s - --docker
+```
+
+#Docker installation:
+
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
