@@ -20,6 +20,6 @@ _________________
 
 <div class="pull-right"> 
 <center>
-<img src="https://ibb.co/7bYZWw3"/>
+<img src="https://i.ibb.co/PtmPh72/diagramme-Kubernetes.png"/>
 </center>
 </div>
