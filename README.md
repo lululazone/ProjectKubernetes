@@ -55,4 +55,74 @@ Creating a configmap for the app:
 kubectl create configmap hello-world --from-file index.html
 ```
 
+# Setup yml config file 
+
+```
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webapp
+            port:
+              number: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app:  webapp
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-nginx
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: webapp-volume
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: webapp-volume
+        configMap:
+          name: webapp
+```
+
+
+# Deploy k3s container:
+
+```
+kubectl apply -f webapp.yml
+```
+
 
