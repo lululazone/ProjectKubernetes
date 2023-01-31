@@ -1,0 +1,76 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: webapp
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-nginx
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: webapp-volume
+              mountPath: /usr/share/nginx/html
+        - name: webapp
+          image: deva-groupe8-k3s:5000/webapp
+      volumes:
+        - name: webapp-volume
+          configMap:
+            name: webapp
+
+---
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: webapp
+build:
+  artifacts:
+    - image: deva-groupe8-k3s:5000/webapp
+      context: backend
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+      - k8s/deployment.yaml
