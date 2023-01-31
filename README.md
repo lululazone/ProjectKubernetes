@@ -129,7 +129,9 @@ kubectl apply -f webapp.yml
 # Build image using Skaffold and Docker
 
 ## Docker installation: 
+
 - Update repository: 
+
 ```
 sudo apt-get update
 sudo apt-get install \
@@ -137,8 +139,10 @@ sudo apt-get install \
     curl \
     gnupg \
     lsb-release
-    ```
+ ```
+ 
  - Install docker: 
+ 
  ```
  sudo chmod a+r /etc/apt/keyrings/docker.gpg
  sudo apt-get update
@@ -229,8 +233,10 @@ CMD [ "node", "index.js" ]
 
 - Finally, we can build image using: 
 
-``` 
+```
+
 skaffold build
+
 ```
 
   
