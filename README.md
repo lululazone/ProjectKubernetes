@@ -198,6 +198,7 @@ CMD [ "node", "index.js" ]
 
 - Ensure that arborescence is set-up as follow: 
 
+```
 .
 └── ProjectKubernetes/
     ├── app/
@@ -227,6 +228,8 @@ CMD [ "node", "index.js" ]
     ├── README.md
     ├── skaffold.yml
     └── yarn.lock
+    
+    ```
 
 
 ## Build image
