@@ -126,6 +126,117 @@ kubectl apply -f webapp.yml
 ```
 
 
+# Build image using Skaffold and Docker
+
+## Docker installation: 
+- Update repository: 
+```
+sudo apt-get update
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+    ```
+ - Install docker: 
+ ```
+ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+ sudo apt-get update
+ ```
+ 
+ ## Skaffold Installation:
+ 
+ - Install skaffold: 
+ ```
+ curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+ sudo install skaffold /usr/local/bin/
+```
+
+## Implement skaffold into project
+
+- Initiate skaffold: 
+```
+skaffold init
+```
+- Creating skaffold.yml to deploy:
+
+```
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: webapp
+build:
+  artifacts:
+  - image: deva-groupe8-k3s:5000/webapp-example
+    context: app
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - k8s/webapp.yml
+```
+
+- Running skaffold: 
+
+``` 
+skaffold dev
+```
+
+- Writing Dockerfile in app/Dockerfile to match dependecies requirement: 
+
+```
+FROM node:12
+WORKDIR /app
+COPY . .
+CMD [ "node", "index.js" ]
+```
+
+- Ensure that arborescence is set-up as follow: 
+
+.
+└── ProjectKubernetes/
+    ├── app/
+    │   ├── image/
+    │   ├── scripts/
+    │   ├── styles/
+    │   ├── basic.html
+    │   ├── Dockerfile
+    │   ├── favicon.ico
+    │   ├── humans.txt
+    │   ├── index.html
+    │   ├── manifest.json
+    │   ├── package.json
+    │   ├── manifest.webapp
+    │   ├── robots.txt
+    │   ├── service-worker.js
+    │   └── webapp.yml.save
+    ├── docs/
+    │   ├── commands.md
+    │   ├── deploy-appengine.md
+    │   ├── deploy-firebase.md
+    │   └── etc...
+    ├── k8s/
+    │   └── webapp.yml
+    ├── LICENSE
+    ├── package.json
+    ├── README.md
+    ├── skaffold.yml
+    └── yarn.lock
+
+
+## Build image
+
+- Finally, we can build image using: 
+
+``` 
+skaffold build
+```
+
+  
+
+
+
 # Useful links: 
 - https://www.jeffgeerling.com/blog/2022/quick-hello-world-http-deployment-testing-k3s-and-traefik
 - https://docs.docker.com/engine/install/ubuntu/
