@@ -229,7 +229,7 @@ CMD [ "node", "index.js" ]
     ├── skaffold.yml
     └── yarn.lock
     
-    ```
+```
 
 
 ## Build image
