@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      uses: docker/build-push-action@master
+      uses: docker/build-push-action@main
       with:
         context: .
         push: true
@@ -28,7 +28,7 @@ jobs:
 
     - name: Publish Docker image
       if: success()
-      uses: docker/docker-publish-action@master
+      uses: docker/docker-publish-action@main
       with:
         name: webapp-example
         tags: 1
