@@ -7,7 +7,7 @@ on:
       - skaffoldbuildimage
 
 env:
-  DOCKER_REGISTRY: ghcr.io
+  DOCKER_REGISTRY: docker.io
   IMAGE_NAME: deva-groupe8-k3s/webapp-example
   IMAGE_TAG: 7f6a852-dirty
 
@@ -24,12 +24,10 @@ jobs:
       with:
         context: .
         push: true
-        tags: deva-groupe8-k3s:5000/webapp-example:1
+        tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
     - name: Publish Docker image
       if: success()
-      uses: docker/docker-publish-action@v2
+      uses: docker/push-action@v1
       with:
-        context: .
-        name: webapp-example
-        tags: 1
+        tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
