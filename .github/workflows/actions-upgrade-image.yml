@@ -30,5 +30,6 @@ jobs:
       if: success()
       uses: docker/docker-publish-action@v2
       with:
+        context: .
         name: webapp-example
         tags: 1
