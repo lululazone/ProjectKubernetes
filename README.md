@@ -242,6 +242,100 @@ skaffold build
 
 ```
 
+
+
+## CI/CD Setup 
+
+# Requirement 
+- An branch to be built
+- A commit to be done
+- Permission for github action
+- A docker repo or github repo
+- Adding Github secret for login
+
+# Creating a workflow file 
+
+Write a workflow file as shown below : 
+
+``` 
+name: Build and push Docker image
+
+on:
+  push:
+    branches:
+      - main
+      - skaffoldbuildimage
+
+env:
+  DOCKER_REGISTRY: docker.io
+  IMAGE_NAME: deva-groupe8-k3s/webapp-example
+  IMAGE_TAG: 7f6a852-dirty
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Build the docker Docker image
+      run: |
+       docker build . --tag ghcr.io/lululazone/webapp-example:latest
+       docker run ghcr.io/lululazone/webapp-example:latest
+       docker push ghcr.io/lululazone/webapp-example:latest
+
+```
+
+
+# Bug fix 
+
+npm can cause crash when ci/cd start, to ensure that the job will run perfectly, we suggest you to modify the docker file in root folder as shown below:
+
+```
+
+# Use an official image as the base image
+FROM node:14-alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json into the container
+COPY package.json ./
+
+
+# Install the dependencies
+RUN npm install --ignore-scripts
+
+# Copy the rest of the files into the container
+COPY . .
+
+
+```
+
+We ignore python script that can cause crash because github doesn't found repo to download them
+
+
+
+## Conclusion
+
+# Alternative CI/CD
+
+You can also try to compile the project using JenKins, infortunaly , we weren't able to do it.
+
+# Limitation
+
+Due to ignoring some nps script to compile, you will have to start the project manually on each commit.
+
+
+
   
 
 
@@ -252,5 +346,7 @@ skaffold build
 - https://k3s.io/
 - https://docs.k3s.io/networking
 - https://chocolatey.org/install
+- https://www.jenkins.io/doc/
+
 
 
