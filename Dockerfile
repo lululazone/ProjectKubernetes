@@ -9,7 +9,7 @@ COPY package.json ./
 
 
 # Install the dependencies
-RUN npm install
+RUN npm install --ignore-scripts
 
 # Copy the rest of the files into the container
 COPY . .
