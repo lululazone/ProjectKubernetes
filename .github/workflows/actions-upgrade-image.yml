@@ -25,9 +25,12 @@ jobs:
         context: .
         push: true
         tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-
+        
     - name: Publish Docker image
       if: success()
-      uses: docker/push-action@v1
+      uses: docker/docker-publish-action@v4
       with:
-        tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        name: webapp-example
+        tags: 1
+
+
