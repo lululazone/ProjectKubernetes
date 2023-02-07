@@ -7,7 +7,7 @@ on:
       - skaffoldbuildimage
 
 env:
-  DOCKER_REGISTRY: docker.io
+  DOCKER_REGISTRY: ghcr.io
   IMAGE_NAME: deva-groupe8-k3s/webapp-example
   IMAGE_TAG: 7f6a852-dirty
 
